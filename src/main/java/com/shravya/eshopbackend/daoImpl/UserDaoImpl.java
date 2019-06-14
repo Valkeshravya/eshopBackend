@@ -22,7 +22,7 @@ SessionFactory sessionFactory;
 		session=sessionFactory.openSession();
 		user.setRole("ROLE_USER");
 		user.setEnabled(true);
-		session.saveOrUpdate(user);
+		session.save(user);
 		Transaction transaction=session.beginTransaction();
 		transaction.commit();
 		return true;
@@ -54,6 +54,46 @@ SessionFactory sessionFactory;
 			return true;
 		}
 		
+
+	}
+
+
+	@Override
+	public User getUser(String email)
+	{
+		User user=new User();
+		Session session=sessionFactory.openSession();
+		Query query=session.createQuery("from usertable where email=:em");
+        query.setParameter("em",email);
+        Object object=query.uniqueResult();
+        user=(User)object;
+        System.out.println(user);
+        return user;
+	}
+
+
+	@Override
+	public boolean editUser(User user) 
+	{
+		Session session=null;
+		try
+		{   session=sessionFactory.openSession();
+			session.update(user);
+			Transaction transaction=session.beginTransaction();
+			transaction.commit();
+			System.out.println("try");
+			return true;
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("catch");
+			return false;
+		}
+		finally
+		{
+			session.close();
+		}
 
 	}
 

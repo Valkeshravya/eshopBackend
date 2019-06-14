@@ -23,7 +23,7 @@ SessionFactory sessionFactory;
 		System.out.println(sessionFactory);
 		try
 		{   session=sessionFactory.openSession();
-			session.saveOrUpdate(product);
+			session.save(product);
 			Transaction transaction=session.beginTransaction();
 			transaction.commit();
 			System.out.println("try");
@@ -78,6 +78,32 @@ SessionFactory sessionFactory;
 		List<Product> list=query.list();
 		session.close();
 		return list;
+	}
+
+	@Override
+	public boolean editProduct(Product product) 
+	{
+		Session session=null;
+		try
+		{   session=sessionFactory.openSession();
+			session.update(product);
+			Transaction transaction=session.beginTransaction();
+			transaction.commit();
+			System.out.println("try");
+			return true;
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("catch");
+			return false;
+		}
+		finally
+		{
+			session.close();
+		}
+
+
 	}
 
 }

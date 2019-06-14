@@ -2,6 +2,8 @@ package com.shravya.eshopbackend.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
@@ -12,6 +14,7 @@ public class Product
 {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int productId;
 	@Column
 	private String productName;

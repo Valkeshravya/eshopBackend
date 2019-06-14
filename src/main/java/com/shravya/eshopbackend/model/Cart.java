@@ -22,7 +22,7 @@ public class Cart
     private int totalPrice;
     @Column
    private  String  userName;
-    
+ 
 
     public String getUserName() {
 		return userName;

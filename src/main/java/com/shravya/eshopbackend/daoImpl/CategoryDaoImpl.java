@@ -20,16 +20,17 @@ public class CategoryDaoImpl implements CategoryDao
 	public boolean saveCategory(Category category) 
 	{
 		Session session = null;
-		if(category.getCategoryId()==0)
+		/*if(category.getCategoryId()==0)
 	    {
 	    int id=(int)(Math.random()*10000);
 	    category.setCategoryId(id);
 	    System.out.println("..........."+id);
 	    }
+	    */
 		System.out.println(sessionFactory);
 		try
 		{   session=sessionFactory.openSession();
-			session.saveOrUpdate(category);
+			session.save(category);
 			Transaction transaction=session.beginTransaction();
 			transaction.commit();
 			System.out.println("try");
@@ -83,6 +84,32 @@ public class CategoryDaoImpl implements CategoryDao
 		List<Category> list=query.list();
 		session.close();
 		return list;
+	}
+
+	@Override
+	public boolean editCategory(Category category)
+	{
+		Session session=null;
+		try
+		{   session=sessionFactory.openSession();
+			session.update(category);
+			Transaction transaction=session.beginTransaction();
+			transaction.commit();
+			System.out.println("try");
+			return true;
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("catch");
+			return false;
+		}
+		finally
+		{
+			session.close();
+		}
+ 
+		
 	}
  
 }

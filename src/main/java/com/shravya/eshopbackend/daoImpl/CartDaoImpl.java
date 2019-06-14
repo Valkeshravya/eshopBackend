@@ -89,4 +89,16 @@ SessionFactory sessionFactory;
 		return userCartList;
 	}
 
+	@Override
+	public boolean saveCart(Cart cart) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean editCart(Cart cart) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

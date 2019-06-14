@@ -19,16 +19,18 @@ public class SupplierDaoImpl implements SupplierDao
 	public boolean saveSupplier(Supplier supplier)
 	{
 		Session session=null;
+		/*
 		if(supplier.getSupplierId()==0)
 	    {
 	    int id=(int)(Math.random()*10000);
 	    supplier.setSupplierId(id);
 	    System.out.println("..........."+id);
 	    }
+	    */
 		try
 		{
 		session=sessionFactory.openSession();
-		session.saveOrUpdate(supplier);
+		session.save(supplier);
 		Transaction transaction=session.beginTransaction();
 		transaction.commit();
 		System.out.println("try");
@@ -84,6 +86,31 @@ public class SupplierDaoImpl implements SupplierDao
 		session.close();
 		return list;	
 		
+	}
+
+	@Override
+	public boolean editSupplier(Supplier supplier)
+	{
+		Session session=null;
+		try
+		{   session=sessionFactory.openSession();
+			session.update(supplier);
+			Transaction transaction=session.beginTransaction();
+			transaction.commit();
+			System.out.println("try");
+			return true;
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("catch");
+			return false;
+		}
+		finally
+		{
+			session.close();
+		}
+
 	}
 
 }
